@@ -7,18 +7,19 @@ const emailRef = document.querySelector('input');
 //const LOCALSTORAGE_KEY = 'feedback-msg';
 const LOCALSTORAGE_KEY1 = 'feedback-form-state';
 
-const formData = {};
+const {email, message} = formRef.elements;
 
 formRef.addEventListener('submit', onFormSubmit);
+
+
 
 //textareaRef.addEventListener('input', throttle(onTextareaInput, 500));
 
 formRef.addEventListener('input', throttle((e) => {
     
-    formData[e.target.name] = e.target.value;
-    console.log(formData)
+    
 
-    const formDataJSON = JSON.stringify(formData);
+    const formDataJSON = JSON.stringify({email: email.value, message: message.value});
     console.log(formDataJSON);
 
 
@@ -41,25 +42,32 @@ populateTextarea(), 500;
 function onFormSubmit (e) {
     e.preventDefault();
 
-    e.currentTarget.reset();
+    if(email.value === '' || message.value === '') {
+        alert("All fields must be filled")
+    } else {
 
-    localStorage.removeItem(LOCALSTORAGE_KEY1);
-    console.log(formData);
+        console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY1)));
+        e.currentTarget.reset();
+
+        localStorage.clear();
+        
+    
+    }
+
+    
 }
 
 
 function populateTextarea () {
     const input = localStorage.getItem(LOCALSTORAGE_KEY1);
     const parsedInput = JSON.parse(input)
-
-    console.log(parsedInput)
+  
     if(parsedInput) {
-        if(parsedInput.message) {
-        textareaRef.value = parsedInput.message;
-    }
-        if (parsedInput.email) {
-            emailRef.value = parsedInput.email;
-        }
+        
+   message.value = parsedInput.message;
+
+    email.value = parsedInput.email;
+    
     }
         
     

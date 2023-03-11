@@ -12,21 +12,7 @@ const onPlay = function(time) {
     };
     player.on('timeupdate', throttle((onPlay), 1000));
 
-const storedTime = localStorage.getItem(LOCALSTORAGE_KEY);
-
-player.setCurrentTime(storedTime).then(function(seconds) {
-    
-}).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            
-            break;
-
-        default:
-            
-            break;
-    }
-});
+player.setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY || 0));
 
 
       
