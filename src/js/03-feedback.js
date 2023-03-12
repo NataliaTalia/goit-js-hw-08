@@ -27,7 +27,7 @@ formRef.addEventListener('input', throttle((e) => {
 }, 500))
 
 
-populateTextarea(), 500;
+populateTextarea();
 
 // function onTextareaInput (e) {
 //     const value = e.target.value;
@@ -47,9 +47,11 @@ function onFormSubmit (e) {
     } else {
 
         console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY1)));
-        e.currentTarget.reset();
 
         localStorage.clear();
+        e.currentTarget.reset();
+
+        
         
     
     }
